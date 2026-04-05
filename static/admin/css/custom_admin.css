@@ -1,0 +1,170 @@
+:root {
+    --elp-navy: #08111f;
+    --elp-blue: #1f5eb6;
+    --elp-blue-dark: #12438a;
+    --elp-sky: #eaf2fb;
+    --elp-ink: #10233d;
+    --elp-border: #d8e2ee;
+}
+
+#header {
+    background: linear-gradient(135deg, var(--elp-navy) 0%, #102346 100%);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(8, 17, 31, 0.25);
+}
+
+#header #branding h1,
+#header #branding h1 a,
+#header #user-tools a {
+    color: #fff;
+}
+
+#header #user-tools a:hover {
+    color: #bfe0ff;
+}
+
+.module caption,
+.inline-group h2 {
+    background: linear-gradient(135deg, var(--elp-blue) 0%, var(--elp-blue-dark) 100%);
+    color: #fff;
+    border-radius: 14px 14px 0 0;
+    padding: 12px 16px;
+}
+
+.dashboard .module table th,
+.dashboard .module table td,
+#changelist table thead th,
+#changelist table tbody td,
+fieldset.module,
+.form-row,
+.aligned .form-row,
+.aligned .form-row label,
+.submit-row,
+.selector {
+    border-color: var(--elp-border) !important;
+}
+
+body,
+body.login {
+    background: radial-gradient(1200px 550px at 90% -10%, #e8f1ff 0%, rgba(232, 241, 255, 0) 70%), #f4f8fc;
+    color: var(--elp-ink);
+}
+
+.dashboard .module,
+#content-main .module,
+.aligned .form-row,
+#content-main fieldset,
+.change-list,
+.module,
+.changelist-form-container,
+.inline-group,
+.inline-related,
+.object-tools a,
+.submit-row,
+.login .form-row,
+.login .submit-row,
+.login .password-reset-link,
+.login .submit-row input,
+.form-row input,
+.form-row select,
+.form-row textarea {
+    border-radius: 16px;
+}
+
+#content-main .module,
+#content-main fieldset,
+.change-list,
+.inline-group,
+.inline-related,
+.login .form-row,
+.login .submit-row {
+    box-shadow: 0 12px 26px rgba(16, 35, 61, 0.06);
+    overflow: hidden;
+}
+
+.object-tools a,
+.submit-row input,
+.login .submit-row input {
+    background: linear-gradient(135deg, var(--elp-blue) 0%, var(--elp-blue-dark) 100%);
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 10px 20px rgba(31, 94, 182, 0.18);
+}
+
+.object-tools a:hover,
+.submit-row input:hover,
+.login .submit-row input:hover {
+    background: linear-gradient(135deg, #2a6fd1 0%, #0f3569 100%);
+}
+
+#content-main a,
+.module a,
+.dashboard .module a {
+    color: var(--elp-blue);
+}
+
+#content-main a:hover,
+.module a:hover,
+.dashboard .module a:hover {
+    color: var(--elp-blue-dark);
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login #container {
+    width: min(460px, 92vw);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px rgba(16, 35, 61, 0.18);
+    overflow: hidden;
+}
+
+.login #header {
+    padding: 1.2rem 1.4rem;
+}
+
+.login #content {
+    padding: 1.3rem 1.4rem 1.5rem;
+}
+
+.login form {
+    margin-top: 0.75rem;
+}
+
+.login .form-row label {
+    color: var(--elp-ink);
+    font-weight: 700;
+}
+
+.login .form-row input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--elp-border);
+    background: #fff;
+}
+
+.login .form-row input:focus {
+    border-color: var(--elp-blue);
+    box-shadow: 0 0 0 3px rgba(31, 94, 182, 0.12);
+}
+
+.login .submit-row {
+    margin-top: 1rem;
+}
+
+.login .password-reset-link {
+    text-align: center;
+    margin-top: 0.75rem;
+    color: var(--elp-blue);
+}
+
+.change-list table tbody tr:hover,
+.dashboard .module table tbody tr:hover {
+    background: #f6fbff;
+}

@@ -1,0 +1,1934 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EquilbriumLegalPartners · Corporate Enforcement Services</title>
+    <link rel="icon" type="image/png" href="{% static 'images/equilogo.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/equilogo.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 - stable CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #08111f;
+            --bg-deep: #0d1728;
+            --text-light: #f8fbff;
+            --text-muted: #9db3cc;
+            --line-soft: rgba(255, 255, 255, 0.18);
+            --accent: #7ec8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Manrope', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; /* SMOOTH SCROLL GLOBAL */
+        }
+
+        body {
+            background: linear-gradient(180deg, #0a1528 0%, #121c31 25%, #f8fafc 55%);
+            color: #1e293b;
+            line-height: 1.5;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.24s ease, transform 0.24s ease;
+        }
+
+        body.page-ready {
+            opacity: 1;
+        }
+
+        body.page-leave {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(0.85rem, 2.2vw, 2rem);
+        }
+
+        /* ===== HEADER OVERHAUL ===== */
+        .utility-bar {
+            background: #050c18;
+            color: #d3e4f7;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+        }
+
+        .utility-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 0.55rem;
+            padding-bottom: 0.55rem;
+            flex-wrap: wrap;
+        }
+
+        .utility-left {
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .utility-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .utility-social {
+            display: inline-flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .utility-social a {
+            color: #d8e6f7;
+            text-decoration: none;
+            width: 1.9rem;
+            height: 1.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .utility-social a:hover {
+            border-color: #7ec8ff;
+            color: #7ec8ff;
+            transform: translateY(-2px);
+        }
+
+        .lang-menu {
+            position: relative;
+        }
+
+        .lang-toggle {
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            background: rgba(255, 255, 255, 0.08);
+            color: #e7f1ff;
+            border-radius: 999px;
+            width: 2.2rem;
+            height: 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .lang-toggle::-webkit-details-marker {
+            display: none;
+        }
+
+        .lang-toggle::marker {
+            content: '';
+        }
+
+        .lang-toggle svg {
+            width: 1.05rem;
+            height: 1.05rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.9;
+        }
+
+        .lang-panel {
+            position: absolute;
+            top: calc(100% + 0.45rem);
+            right: 0;
+            background: #091426;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 0.65rem;
+            min-width: 190px;
+            display: none;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+            z-index: 20;
+        }
+
+        .lang-menu[open] .lang-panel {
+            display: block;
+        }
+
+        .lang-panel label {
+            display: block;
+            color: #dbe9fa;
+            font-size: 0.76rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .lang-panel select {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: #0f1d34;
+            color: #eef5ff;
+            border-radius: 8px;
+            padding: 0.45rem 0.55rem;
+        }
+
+        .navbar {
+            background: rgba(6, 15, 28, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.25);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: box-shadow 0.3s ease;
+        }
+        .navbar:hover {
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-mark {
+            width: 4.1rem;
+            height: 4.1rem;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.18rem;
+        }
+
+        .brand-name {
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .brand-tagline {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #c6d6ea;
+            line-height: 1.35;
+            max-width: 16rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            font-weight: 500;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #d8e6f8;
+            transition: all 0.2s;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0.35rem;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #7ec8ff;
+            transition: width 0.25s ease;
+        }
+        .nav-links a:hover {
+            color: #7ec8ff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .contact-cta {
+            border: 1px solid #7ec8ff;
+            border-radius: 999px;
+            padding: 0.55rem 1rem !important;
+            line-height: 1;
+            color: #ffffff !important;
+        }
+
+        .contact-cta::after {
+            display: none;
+        }
+
+        .contact-cta:hover {
+            background: rgba(126, 200, 255, 0.14);
+            color: #7ec8ff !important;
+        }
+
+        /* ===== HERO TRANSFORMATION ===== */
+        .hero-tag {
+            position: relative;
+            min-height: calc(100vh - 130px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: saturate(0.95) contrast(1.03);
+            transform: scale(1.02);
+            animation: heroFloat 40s ease-in-out infinite alternate;
+            will-change: transform;
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+
+        .hero-video.fade-out-loop {
+            opacity: 0.18;
+        }
+
+        .hero-video.fade-in-loop {
+            opacity: 1;
+        }
+
+        @keyframes heroFloat {
+            0% {
+                transform: scale(1.03) translate3d(0, 0, 0);
+            }
+            100% {
+                transform: scale(1.05) translate3d(-0.6%, 0, 0);
+            }
+        }
+
+        .hero-tag::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(2, 8, 18, 0.85) 0%, rgba(5, 14, 28, 0.66) 45%, rgba(8, 15, 27, 0.8) 100%);
+            z-index: -1;
+        }
+
+        .hero-tag .container {
+            position: relative;
+            display: grid;
+            place-items: center;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-stacked {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.9rem;
+            max-width: 820px;
+        }
+
+        .hero-line1 {
+            font-size: clamp(2.2rem, 6.4vw, 5.3rem);
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.03;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+        }
+
+        .hero-keyword {
+            display: inline-block;
+            margin: 0 0.2rem;
+        }
+
+        .hero-rotator {
+            position: relative;
+            vertical-align: middle;
+            text-align: center;
+            white-space: nowrap;
+            min-width: 17ch;
+            overflow: hidden;
+        }
+
+        .hero-rotator-word {
+            display: inline-block;
+            font: inherit;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+            letter-spacing: inherit;
+            line-height: 1.03;
+            padding: 0.2rem 0.75rem;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(2, 7, 18, 0.4);
+            width: fit-content;
+            margin: 0 auto;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            will-change: transform, opacity;
+        }
+
+        .hero-rotator-word.next {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            opacity: 0;
+            transform: translate(-50%, 28%);
+            pointer-events: none;
+        }
+
+        .hero-rotator.is-animating .hero-rotator-word.current {
+            opacity: 0;
+            transform: translateY(-28%);
+        }
+
+        .hero-rotator.is-animating .hero-rotator-word.next {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .hero-line3 {
+            margin-top: 0.7rem;
+            background: #050b14;
+            color: #ffffff;
+            border: 1px solid #101f34;
+            border-radius: 999px;
+            padding: 0.9rem 2.1rem;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hero-line3:hover {
+            transform: translateY(-2px);
+            background: #091427;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-badge {
+            background: rgba(5, 17, 33, 0.55);
+            backdrop-filter: blur(7px);
+            padding: 0.5rem 1.1rem;
+            border-radius: 60px;
+            color: #d9e8fa;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.28);
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+            margin-top: 0.6rem;
+        }
+        .hero-badge:hover {
+            background: rgba(6, 21, 41, 0.8);
+            box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ===== section titles hover ===== */
+        .section-title {
+            text-align: center;
+            margin: 3.5rem 0 2rem;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b2a4e;
+            transition: letter-spacing 0.2s;
+        }
+        .section-title:hover {
+            letter-spacing: 0.02em;
+        }
+        .section-title span {
+            background: #e6f0ff;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1e4a8b;
+            margin-left: 1rem;
+            vertical-align: middle;
+            transition: background 0.2s, color 0.2s;
+        }
+        .section-title span:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ===== FEATURE CARDS (hover effect enhanced) ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f6;
+            transition: transform 0.25s ease, box-shadow 0.3s, border-color 0.2s;
+            cursor: default;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #2563eb60;
+            box-shadow: 0 30px 35px -12px rgba(30, 64, 175, 0.25);
+        }
+
+        .card-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #dbeafe;
+            line-height: 1;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+        .feature-card:hover .card-number {
+            color: #2563eb30;
+        }
+
+        /* ===== TEAM CARD (extra hover for email/phone) ===== */
+        .team-section {
+            background-color: #ffffff;
+            border-radius: 40px 40px 0 0;
+            padding: 3rem 0 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 -10px 30px -10px rgba(0,0,0,0.02);
+        }
+
+        .team-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+        .team-header h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b2a4e;
+            transition: transform 0.2s;
+        }
+        .team-header h2:hover {
+            transform: translateX(8px);
+        }
+        .team-header p {
+            color: #556b8c;
+            font-size: 1.2rem;
+            background: #f0f7ff;
+            padding: 0.3rem 1.5rem;
+            border-radius: 30px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .team-header p:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 270px));
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: #fafdff;
+            border-radius: 28px;
+            padding: 2rem 1.5rem 1.8rem;
+            text-align: center;
+            border: 1px solid #e3eaf2;
+            transition: all 0.25s;
+            cursor: default;
+        }
+        .team-card:hover {
+            background: white;
+            border-color: #2563eb;
+            box-shadow: 0 30px 32px -16px #1e3a8a38;
+            transform: scale(1.02);
+        }
+
+        .team-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #d9e6f5, #b3c9e0);
+            border-radius: 50%;
+            margin: 0 auto 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3a8a;
+            font-size: 3.15rem;
+            font-weight: 300;
+            border: 4px solid white;
+            box-shadow: 0 6px 14px #1e2f4d1a;
+            transition: border-color 0.2s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: calc(var(--photo-focus-x, 50) * 1%) calc(var(--photo-focus-y, 50) * 1%);
+            border-radius: 50%;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: #2563eb;
+            box-shadow: 0 12px 24px -8px #1e3a8a;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0b2b40;
+            margin-bottom: 0.2rem;
+        }
+        .team-role {
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .team-card:hover .team-role {
+            color: #0f2b4b;
+        }
+
+        .team-bio {
+            color: #4f6684;
+            font-size: 0.93rem;
+            margin-bottom: 0.9rem;
+            min-height: 3.5em;
+        }
+
+        .team-phone {
+            font-size: 1.1rem;
+            color: #2d3c5e;
+            margin-bottom: 0.8rem;
+            transition: color 0.2s;
+        }
+        .team-phone i {
+            color: #2563eb;
+            margin-right: 0.4rem;
+        }
+        .team-card:hover .team-phone {
+            color: #0b2a4e;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            font-size: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .team-social a {
+            color: #4f6f9f;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            background: transparent;
+        }
+        .team-social a:hover {
+            color: white;
+            background: #0a66c2;
+            transform: translateY(-4px);
+        }
+        .team-social a[href*="mailto"]:hover {
+            background: #c71610;
+            color: white;
+        }
+        .team-social a .fa-x-twitter:hover {
+            background: #000;
+        }
+
+        .team-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 1.4rem;
+            color: #4b6381;
+            border: 1px dashed #c8d6e8;
+            border-radius: 18px;
+            background: #f8fbff;
+        }
+
+        /* location section hover refinements */
+        .location-section {
+            background-color: #f9fcff;
+            padding: 3.5rem 0 4rem;
+            border-top: 1px solid #e2eaf2;
+            margin-top: 1rem;
+        }
+        .location-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b2a4e;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .location-title span {
+            background: #2563eb10;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .location-title span:hover {
+            background: #2563eb30;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            align-items: stretch;
+        }
+
+        .map-placeholder {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: white;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .map-placeholder:hover {
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .map-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-image iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, transparent 30%, rgba(15, 23, 42, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .map-placeholder:hover .map-overlay {
+            opacity: 1;
+        }
+
+        .map-directions-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 0.85rem 1.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            box-shadow: 0 8px 16px rgba(30, 58, 138, 0.28);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .map-directions-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(30, 58, 138, 0.35);
+        }
+
+        @media (max-width: 1024px) {
+            .map-placeholder {
+                aspect-ratio: 1 / 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .map-placeholder {
+                aspect-ratio: 1 / 1;
+            }
+
+            .map-overlay {
+                opacity: 1;
+                background: linear-gradient(180deg, transparent 20%, rgba(15, 23, 42, 0.5) 100%);
+            }
+        }
+
+        .contact-card,
+        .appointment-card {
+            background: #ffffff;
+            border: 1px solid #e2eaf2;
+            border-radius: 24px;
+            padding: 1.3rem;
+            box-shadow: 0 8px 22px rgba(15, 42, 78, 0.08);
+        }
+
+        .contact-company,
+        .appointment-card h3 {
+            color: #0f2b4b;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.55rem;
+        }
+
+        .contact-detail p,
+        .appointment-card p {
+            color: #37577a;
+            margin-bottom: 0.5rem;
+        }
+
+        .appointment-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .appointment-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .appointment-card-head p {
+            margin-bottom: 0;
+        }
+
+        .appointment-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 800;
+            background: #eff6ff;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .appointment-form {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .appointment-field {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .appointment-field label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0f2b4b;
+        }
+
+        .appointment-form input,
+        .appointment-form select,
+        .appointment-form textarea {
+            width: 100%;
+            border: 1px solid #c5d4e7;
+            border-radius: 14px;
+            padding: 0.9rem 1rem;
+            background: #fafdff;
+            color: #0f172a;
+            font: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+
+        .appointment-form textarea {
+            min-height: 108px;
+            resize: vertical;
+        }
+
+        .appointment-form input:focus,
+        .appointment-form select:focus,
+        .appointment-form textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .appointment-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+            color: #4d6685;
+            font-size: 0.9rem;
+        }
+
+        .appointment-meta a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .appointment-status {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .appointment-status.show {
+            display: block;
+        }
+
+        .appointment-status.success {
+            color: #0f8a4b;
+        }
+
+        .appointment-status.error {
+            color: #b42318;
+        }
+
+        .contact-linkedin a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            color: #0a66c2;
+            font-weight: 700;
+        }
+
+        .links-list li {
+            margin-top: 0.45rem;
+        }
+
+        .links-list a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+            color: #35567b;
+            font-weight: 600;
+        }
+
+        .map-placeholder:hover {
+            border-color: #2563eb80;
+            box-shadow: 0 20px 28px -12px #1e3a8a60;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+            color: white;
+            border: none;
+            padding: 0.95rem 1.35rem;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 24px -10px #1e3a8a80;
+        }
+
+        .appointment-note {
+            color: #4d6685;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .links-list a {
+            transition: gap 0.2s, color 0.2s;
+        }
+        .links-list a:hover {
+            gap: 1.5rem;
+            color: #1d4ed8;
+        }
+
+        .appointment-link:hover {
+            background: #dbeafe;
+        }
+
+        .appointment-note {
+            margin-top: 0.2rem;
+        }
+
+        .site-footer {
+            background: #f1f5f9;
+            color: #5e6f8d;
+            padding: 1.2rem 0;
+            border-top: 1px solid #d7e1ed;
+        }
+
+        .site-footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-left,
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-admin {
+            color: #1d4ed8;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-admin:hover {
+            text-decoration: underline;
+        }
+
+        .separator-dash {
+            width: 100%;
+            text-align: center;
+            margin: 2rem 0;
+            color: #94a3b8;
+            letter-spacing: 6px;
+        }
+
+        /* responsive */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .location-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero-tag {
+                min-height: 76vh;
+            }
+
+            .hero-line1 {
+                font-size: clamp(2rem, 6vw, 4rem);
+            }
+        }
+        @media (max-width: 720px) {
+            .location-grid,
+            .features-grid { grid-template-columns: 1fr; }
+
+            .utility-bar .container,
+            .navbar .container {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .utility-bar .container {
+                gap: 0.55rem;
+                padding-top: 0.45rem;
+                padding-bottom: 0.45rem;
+            }
+
+            .utility-left {
+                gap: 0.65rem;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .utility-left span {
+                font-size: 0.82rem;
+                gap: 0.35rem;
+            }
+
+            .utility-social {
+                width: auto;
+                gap: 0.38rem;
+                justify-content: center;
+            }
+
+            .utility-social a {
+                width: 1.55rem;
+                height: 1.55rem;
+                font-size: 0.78rem;
+                border-color: rgba(255, 255, 255, 0.16);
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .brand {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .brand-copy {
+                align-items: center;
+            }
+
+            .brand-tagline {
+                max-width: none;
+                letter-spacing: 0.1em;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 0.8rem;
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .hero-tag .container {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+
+            .hero-keyword {
+                display: inline-block;
+                margin-top: 0.35rem;
+            }
+
+            .hero-rotator {
+                min-width: 15ch;
+            }
+
+            .location-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.55rem;
+            }
+
+            .appointment-card-head {
+                flex-direction: column;
+            }
+
+            .appointment-link {
+                align-self: flex-start;
+            }
+        }
+        @media (max-width: 640px) {
+            .team-grid {
+                grid-template-columns: minmax(220px, 1fr);
+                max-width: 380px;
+                margin: 0 auto;
+            }
+
+            .hero-line1 {
+                font-size: clamp(1.5rem, 10vw, 2.25rem);
+                line-height: 1.18;
+            }
+
+            .hero-rotator {
+                min-width: 0;
+                max-width: min(100%, 22ch);
+                white-space: normal;
+                vertical-align: baseline;
+            }
+
+            .hero-rotator-word {
+                white-space: nowrap;
+                font-size: 0.92em;
+            }
+
+            .hero-line3 {
+                width: 100%;
+                max-width: 330px;
+                font-size: 0.88rem;
+                padding: 0.85rem 1.2rem;
+            }
+
+            .utility-left {
+                justify-content: center;
+                width: 100%;
+                gap: 0.7rem;
+                font-size: 0.83rem;
+            }
+
+            .utility-social {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .lang-menu {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .lang-panel {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .brand-mark {
+                width: 3.25rem;
+                height: 3.25rem;
+            }
+
+            .brand-name {
+                font-size: 1.2rem;
+            }
+
+            .brand-tagline {
+                font-size: 0.62rem;
+                line-height: 1.45;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+                margin-top: 2.3rem;
+            }
+
+            .section-title span {
+                display: block;
+                margin: 0.7rem auto 0;
+                width: fit-content;
+                font-size: 0.85rem;
+            }
+
+            .team-header h2,
+            .location-title {
+                font-size: 1.6rem;
+            }
+
+            .team-card,
+            .feature-card,
+            .map-placeholder,
+            .contact-card,
+            .appointment-card {
+                border-radius: 18px;
+            }
+
+            .links-list a {
+                font-size: 0.94rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.85rem;
+            }
+
+            .utility-left span {
+                font-size: 0.76rem;
+            }
+
+            .utility-social {
+                gap: 0.3rem;
+            }
+
+            .utility-social a {
+                width: 1.4rem;
+                height: 1.4rem;
+                font-size: 0.72rem;
+            }
+
+            .hero-line1 {
+                font-size: 1.42rem;
+            }
+
+            .hero-rotator-word {
+                padding: 0.18rem 0.55rem;
+            }
+
+            .nav-links a {
+                font-size: 0.93rem;
+            }
+
+            .contact-cta {
+                padding: 0.45rem 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .utility-social {
+                display: none;
+            }
+
+            .utility-left {
+                gap: 0.45rem;
+            }
+
+            .utility-left span {
+                font-size: 0.74rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="utility-bar">
+        <div class="container">
+            <div class="utility-left">
+                <span><i class="fas fa-phone"></i> +250 788 471 035</span>
+                <span><i class="far fa-envelope"></i> info@valuator.rw</span>
+                <span><i class="fas fa-clock"></i> Mon - Fri: 8:00 - 18:00</span>
+            </div>
+            <div class="utility-social">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <details class="lang-menu" aria-label="Language switcher">
+                <summary class="lang-toggle" title="Choose language" aria-label="Choose language">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M3 12h18"></path>
+                        <path d="M12 3c3.2 2.8 3.2 15.2 0 18"></path>
+                        <path d="M12 3c-3.2 2.8-3.2 15.2 0 18"></path>
+                    </svg>
+                </summary>
+                <div class="lang-panel">
+                    <label for="homeLangSelect">Language</label>
+                    <select id="homeLangSelect" aria-label="Select language">
+                        <option value="en">English</option>
+                        <option value="sw">Swahili</option>
+                        <option value="fr">French</option>
+                    </select>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <a class="brand" href="{% url 'home' %}" aria-label="EquilbriumLegalPartners home">
+                <img class="brand-mark" src="{% static 'images/equilogo.png' %}" alt="EquilbriumLegalPartners logo">
+                <span class="brand-copy">
+                    <span class="brand-name">EquilbriumLegalPartners</span>
+                    <span class="brand-tagline">LAW | BAILIFF | ENFORCEMENT | NOTIFICATION OF LETTERS</span>
+                </span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'about' %}">About Us</a>
+                <a href="{% url 'services' %}">Services</a>
+                <a href="{% url 'contact' %}" class="contact-cta">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO with local autoplaying legal video + centered headline + CTA -->
+    <div class="hero-tag">
+        <video
+            class="hero-video"
+            id="heroBackgroundVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Legal services background video"
+        >
+            <source src="{% static 'images/legalparterns.mp4' %}" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="hero-stacked">
+                <h1 class="hero-line1">we provide <span class="hero-keyword hero-rotator" id="heroWordRotator" data-words="LAW|BAILIFF|ENFORCEMENT|NOTIFICATION OF LETTERS"><span class="hero-rotator-word current">LAW</span><span class="hero-rotator-word next" aria-hidden="true"></span></span> services</h1>
+                <a href="{% url 'services' %}" class="hero-line3">Explore Our Services</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY CHOOSE US -->
+    <main class="container">
+        <div class="section-title">WHY CHOOSE US <span>since 2012</span></div>
+        <div class="features-grid">
+            <div class="feature-card"><div class="card-number">01</div><h3>Specialized Legal Practice</h3><p>Focused support in legal advisory, case preparation, and practical legal solutions for clients across Rwanda.</p></div>
+            <div class="feature-card"><div class="card-number">02</div><h3>Professional Bailiff Execution</h3><p>Reliable follow-through on lawful procedures, court-related processes, and compliant execution steps.</p></div>
+            <div class="feature-card"><div class="card-number">03</div><h3>Structured Enforcement Support</h3><p>Clear enforcement planning and action tracking to help clients move from judgment to implementation.</p></div>
+            <div class="feature-card"><div class="card-number">04</div><h3>Trusted Notification Of Letters</h3><p>Timely, traceable, and documented letter notification services delivered with professionalism in Rwanda.</p></div>
+        </div>
+        <div class="separator-dash">✦ ✦ ✦</div>
+    </main>
+
+    <!-- TEAM (with email icons) -->
+    <section class="team-section">
+        <div class="container">
+            <div class="team-header">
+                <h2>OUR EXPERTS</h2>
+                <p>Meet Our Dedicated Team</p>
+            </div>
+            <div class="team-grid">
+                {% for member in team_members %}
+                <div class="team-card">
+                    <div class="team-avatar">
+                        {% if member.photo %}
+                        <img src="{{ member.photo.url }}" alt="{{ member.name }}" style="--photo-focus-x: {{ member.photo_focus_x }}; --photo-focus-y: {{ member.photo_focus_y }};">
+                        {% else %}
+                        {{ member.name|slice:":1"|upper }}
+                        {% endif %}
+                    </div>
+                    <div class="team-name">{{ member.name }}</div>
+                    <div class="team-role">{{ member.role }}</div>
+                    {% if member.bio %}
+                    <p class="team-bio">{{ member.bio }}</p>
+                    {% endif %}
+                    {% if member.phone %}
+                    <div class="team-phone"><i class="fas fa-phone-alt"></i> {{ member.phone }}</div>
+                    {% endif %}
+                    <div class="team-social">
+                        {% if member.linkedin_url %}<a href="{{ member.linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>{% endif %}
+                        {% if member.x_url %}<a href="{{ member.x_url }}" aria-label="X" target="_blank" rel="noopener"><i class="fab fa-x-twitter"></i></a>{% endif %}
+                        {% if member.facebook_url %}<a href="{{ member.facebook_url }}" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                        {% if member.email %}<a href="mailto:{{ member.email }}" aria-label="Email"><i class="fas fa-envelope"></i></a>{% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="team-empty">No team members have been published yet. Add members from the admin dashboard.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="location-section">
+        <div class="container">
+            <div class="location-title">OUR LOCATION <span>visit us</span></div>
+            <div class="location-grid">
+                <div class="map-placeholder">
+                    <div class="map-image">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.699788015647!2d30.05973!3d-1.94995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4c4cf6bc0e5%3A0x4b9e3d7e8f9e0e0e!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2srw!4v1234567890"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="map-overlay">
+                        <a href="https://maps.google.com/?q=Kigali+Rwanda&ll=-1.94995,30.05973&z=13"
+                           class="map-directions-btn"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <i class="fas fa-location-dot"></i>
+                            Get Directions
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-company">EquilbriumLegalPartners</div>
+                    <div class="contact-detail"><p><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</p><p><i class="far fa-envelope"></i> valuatorcompanyltd@gmail.com</p></div>
+                    <div class="contact-linkedin"><a href="#"><i class="fab fa-linkedin-in"></i> Company LinkedIn</a></div>
+                    <div style="margin-top:2rem;"><h4 style="color:#0f2b4b;">IMPORTANT LINKS</h4>
+                        <ul class="links-list" style="list-style:none; margin-top:1rem;">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> RDB</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> RRA</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Ministry of Trade and Industry</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> RSB</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="appointment-card">
+                    <div class="appointment-card-head">
+                        <div>
+                            <h3>MAKE APPOINTMENT</h3>
+                            <p>Book advisory & consultancy</p>
+                        </div>
+                        <a class="appointment-link" href="{% url 'contact' %}"><i class="fas fa-arrow-right"></i> Full form</a>
+                    </div>
+                    <form id="homeAppointmentForm" class="appointment-form" method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="appointment-field">
+                            <label for="home-name">Full Name</label>
+                            <input id="home-name" name="name" type="text" placeholder="Your full name" required>
+                        </div>
+                        <div class="appointment-field">
+                            <label for="home-email">Email Address</label>
+                            <input id="home-email" name="email" type="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="appointment-field">
+                            <label for="home-consultant">Preferred Consultant</label>
+                            <select id="home-consultant" name="consultant">
+                                <option value="">Not Sure / Assign for Me</option>
+                                {% for member in team_members %}
+                                <option value="{{ member.id }}">{{ member.name }} - {{ member.role }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="appointment-field">
+                            <label for="home-message">Message</label>
+                            <textarea id="home-message" name="message" placeholder="Tell us briefly what you need..."></textarea>
+                        </div>
+                        <button type="submit" class="book-btn"><i class="fas fa-calendar-check"></i> Book Appointment</button>
+                        <div class="appointment-note">You’ll get a confirmation and our team will follow up by email.</div>
+                        <div id="homeAppointmentStatus" class="appointment-status"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-left">
+                <span>© 2025 EquilbriumLegalPartners — Rwanda. All rights reserved.</span>
+                <a class="footer-admin" href="{% url 'admin:index' %}">Admin Gate</a>
+            </div>
+            <div class="footer-right">
+                <span>Developed by MUSeed LTD</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            document.body.classList.add('page-ready');
+            document.addEventListener('click', function (event) {
+                const anchor = event.target.closest('a[href]');
+                if (!anchor) return;
+
+                const href = anchor.getAttribute('href');
+                if (!href) return;
+                if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+                if (anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+
+                const destination = new URL(anchor.href, window.location.origin);
+                if (destination.origin !== window.location.origin) return;
+                if (destination.pathname === window.location.pathname && destination.search === window.location.search) return;
+
+                event.preventDefault();
+                document.body.classList.add('page-leave');
+                setTimeout(function () {
+                    window.location.href = destination.href;
+                }, 180);
+            });
+        })();
+
+        (function () {
+            const form = document.getElementById('homeAppointmentForm');
+            if (!form) return;
+
+            const statusEl = document.getElementById('homeAppointmentStatus');
+            const submitButton = form.querySelector('.book-btn');
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                statusEl.className = 'appointment-status';
+                statusEl.textContent = '';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.status === 'success') {
+                        form.reset();
+                        statusEl.textContent = data.message || 'Your appointment request has been sent.';
+                        statusEl.className = 'appointment-status success show';
+                    } else {
+                        statusEl.textContent = 'Please check the form and try again.';
+                        statusEl.className = 'appointment-status error show';
+                    }
+                } catch (error) {
+                    statusEl.textContent = 'Something went wrong. Please try again.';
+                    statusEl.className = 'appointment-status error show';
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment';
+                }
+            });
+        })();
+
+        (function () {
+            const pageKey = 'elp.lang';
+            const savedLang = localStorage.getItem(pageKey);
+            const allowedLangs = ['en', 'sw', 'fr'];
+            const lang = allowedLangs.indexOf(savedLang) >= 0 ? savedLang : 'en';
+
+            const dictionaries = {
+                en: {
+                    title: 'EquilbriumLegalPartners · Corporate Enforcement Services',
+                    words: ['LAW', 'BAILIFF', 'ENFORCEMENT', 'NOTIFICATION OF LETTERS'],
+                    text: {},
+                    placeholders: {}
+                },
+                rw: {
+                    title: 'EquilbriumLegalPartners · Serivisi z\'Amategeko n\'Ishyirwa Mu Bikorwa',
+                    words: ['AMATEGEKO', 'HUISSIER', 'ISHYIRWA MU BIKORWA', 'IMENYESHA RY\'INYANDIKO'],
+                    text: {
+                        'Language': 'Ururimi',
+                        'Mon - Fri: 8:00 - 18:00': 'Kuwa Mbere - Kuwa Gatanu: 8:00 - 18:00',
+                        'Home': 'Ahabanza',
+                        'About Us': 'Abo Turi Bo',
+                        'Service': 'Serivisi',
+                        'Contact Us': 'Twandikire',
+                        'LAW | BAILIFF | ENFORCEMENT | NOTIFICATION OF LETTERS': 'AMATEGEKO | HUISSIER | ISHYIRWA MU BIKORWA | IMENYESHA RY\'INYANDIKO',
+                        'we provide': 'Dutanga',
+                        'services': 'serivisi',
+                        'Explore Our Services': 'Reba Serivisi Zacu',
+                        'WHY CHOOSE US': 'IMPAMVU MWADUHITAMO',
+                        'since 2012': 'kuva 2012',
+                        'Specialized Legal Practice': 'Ubunararibonye Mu Mategeko',
+                        'Focused support in legal advisory, case preparation, and practical legal solutions for clients across Rwanda.': 'Ubufasha bwibanda ku nama z\'amategeko, gutegura dosiye z\'imanza, no gutanga ibisubizo by\'amategeko bifatika ku bakiliya bo mu Rwanda hose.',
+                        'Professional Bailiff Execution': 'Ishyirwa Mu Bikorwa na Ba Huissier b\'Umwuga',
+                        'Reliable follow-through on lawful procedures, court-related processes, and compliant execution steps.': 'Gukurikiranira hafi inzira zemewe n\'amategeko, ibikorwa bifitanye isano n\'inkiko, no gushyira mu bikorwa hakurikijwe amategeko.',
+                        'Structured Enforcement Support': 'Ubufasha Bunoze Mu Ishyirwa Mu Bikorwa',
+                        'Clear enforcement planning and action tracking to help clients move from judgment to implementation.': 'Gahunda yumvikana yo gushyira mu bikorwa no gukurikirana intambwe zose kugira ngo icyemezo kigere ku ishyirwa mu bikorwa.',
+                        'Trusted Notification Of Letters': 'Imenyesha Ry\'Inyandiko Ryizewe',
+                        'Timely, traceable, and documented letter notification services delivered with professionalism in Rwanda.': 'Serivisi zo kumenyesha inyandiko ku gihe, z\'ikurikiranabikorwa kandi zanditse neza, zitangwa kinyamwuga mu Rwanda.',
+                        'OUR EXPERTS': 'ABAHANGA BACU',
+                        'Meet Our Dedicated Team': 'Menya Itsinda Ryacu Ryitanga',
+                        'CHAIRMAN': 'UMUYOBOZI',
+                        'Auditor': 'UMUGENZUZI',
+                        'Senior valuator': 'UMUSESENGUZI MUKURU',
+                        'OUR LOCATION': 'AHO DUKORERA',
+                        'visit us': 'mudusure',
+                        '🗺️ Map: Kigali, Rwanda': '🗺️ Ikarita: Kigali, Rwanda',
+                        '1214×364 — directing to office': '1214×364 — inzira ijya ku biro',
+                        'Company LinkedIn': 'LinkedIn y\'Ikigo',
+                        'IMPORTANT LINKS': 'AMAHUZA Y\'INGENZI',
+                        'Ministry of Trade and Industry': 'Minisiteri y\'Ubucuruzi n\'Inganda',
+                        'MAKE APPOINTMENT': 'FATA GAHUNDA',
+                        'Book advisory & consultancy': 'Andikisha inama n\'ubujyanama',
+                        'Book': 'Andikisha',
+                        'Privacy': 'Ubwirinzi bw\'Amakuru',
+                        'Terms': 'Amategeko y\'Imikoreshereze',
+                        '© 2025 EquilbriumLegalPartners — Rwanda. All rights reserved.': '© 2025 EquilbriumLegalPartners — Rwanda. Uburenganzira bwose burabitswe.',
+                        '© 2025 EquilbriumLegalPartners — Rwanda.': '© 2025 EquilbriumLegalPartners — Rwanda.',
+                        'All rights reserved.': 'Uburenganzira bwose burabitswe.',
+                        'Admin Gate': 'Ahakorera Admin',
+                        'Developed by MUSeed LTD': 'Byakozwe na MUSeed LTD',
+                        'static: images/map.png': 'dosiye ihagaze: images/map.png'
+                    },
+                    placeholders: {
+                        'Your email': 'Imeli yawe'
+                    }
+                },
+                sw: {
+                    title: 'EquilbriumLegalPartners · Huduma za Sheria na Utekelezaji',
+                    words: ['SHERIA', 'DALALI WA MAHAKAMA', 'UTEKELEZAJI', 'TAARIFA ZA BARUA'],
+                    text: {
+                        'Language': 'Lugha',
+                        'Mon - Fri: 8:00 - 18:00': 'Jumatatu - Ijumaa: 8:00 - 18:00',
+                        'Home': 'Nyumbani',
+                        'About Us': 'Kuhusu Sisi',
+                        'Service': 'Huduma',
+                        'Contact Us': 'Wasiliana Nasi',
+                        'LAW | BAILIFF | ENFORCEMENT | NOTIFICATION OF LETTERS': 'SHERIA | DALALI WA MAHAKAMA | UTEKELEZAJI | TAARIFA ZA BARUA',
+                        'we provide': 'tunatoa',
+                        'services': 'huduma',
+                        'Explore Our Services': 'Chunguza Huduma Zetu',
+                        'WHY CHOOSE US': 'KWANINI UTUCHAGUE',
+                        'since 2012': 'tangu 2012',
+                        'Specialized Legal Practice': 'Utaalamu wa Sheria',
+                        'Focused support in legal advisory, case preparation, and practical legal solutions for clients across Rwanda.': 'Msaada maalum wa ushauri wa kisheria, maandalizi ya kesi, na suluhisho za vitendo za sheria kwa wateja kote Rwanda.',
+                        'Professional Bailiff Execution': 'Utekelezaji wa Kitaalamu wa Dalali wa Mahakama',
+                        'Reliable follow-through on lawful procedures, court-related processes, and compliant execution steps.': 'Ufuatiliaji wa kuaminika wa taratibu halali, michakato ya mahakama, na hatua za utekelezaji zinazoendana na sheria.',
+                        'Structured Enforcement Support': 'Msaada wa Utekelezaji Ulio Pangwa',
+                        'Clear enforcement planning and action tracking to help clients move from judgment to implementation.': 'Mipango wazi ya utekelezaji na ufuatiliaji wa hatua ili kusaidia wateja kutoka kwenye hukumu hadi utekelezaji halisi.',
+                        'Trusted Notification Of Letters': 'Utoaji wa Notisi za Barua Unaotegemewa',
+                        'Timely, traceable, and documented letter notification services delivered with professionalism in Rwanda.': 'Huduma za utoaji wa notisi za barua kwa wakati, zinazofuatilika na zenye kumbukumbu kamili, zinazotolewa kitaalamu nchini Rwanda.',
+                        'OUR EXPERTS': 'WATAALAMU WETU',
+                        'Meet Our Dedicated Team': 'Kutana na Timu Yetu Iliyodhamiria',
+                        'CHAIRMAN': 'MWENYEKITI',
+                        'Auditor': 'MKAGUZI',
+                        'Senior valuator': 'MTHAMINI MWANDAMIZI',
+                        'OUR LOCATION': 'MAHALI TULIPO',
+                        'visit us': 'tutembelee',
+                        '🗺️ Map: Kigali, Rwanda': '🗺️ Ramani: Kigali, Rwanda',
+                        '1214×364 — directing to office': '1214×364 — kuelekea ofisini',
+                        'Company LinkedIn': 'LinkedIn ya Kampuni',
+                        'IMPORTANT LINKS': 'VIUNGO MUHIMU',
+                        'Ministry of Trade and Industry': 'Wizara ya Biashara na Viwanda',
+                        'MAKE APPOINTMENT': 'PANGA MIADI',
+                        'Book advisory & consultancy': 'Weka miadi ya ushauri',
+                        'Book': 'Weka Miadi',
+                        'Privacy': 'Faragha',
+                        'Terms': 'Masharti',
+                        '© 2025 EquilbriumLegalPartners — Rwanda.': '© 2025 EquilbriumLegalPartners — Rwanda.',
+                        'static: images/map.png': 'faili tuli: images/map.png'
+                    },
+                    placeholders: {
+                        'Your email': 'Barua pepe yako'
+                    }
+                },
+                fr: {
+                    title: 'EquilbriumLegalPartners · Services Juridiques et Exécution',
+                    words: ['DROIT', 'HUISSIER', 'EXÉCUTION', 'NOTIFICATION DE LETTRES'],
+                    text: {
+                        'Language': 'Langue',
+                        'Mon - Fri: 8:00 - 18:00': 'Lun - Ven : 8h00 - 18h00',
+                        'Home': 'Accueil',
+                        'About Us': 'À Propos',
+                        'Service': 'Services',
+                        'Contact Us': 'Contactez-Nous',
+                        'LAW | BAILIFF | ENFORCEMENT | NOTIFICATION OF LETTERS': 'DROIT | HUISSIER | EXÉCUTION | NOTIFICATION DE LETTRES',
+                        'we provide': 'nous fournissons',
+                        'services': 'des services',
+                        'Explore Our Services': 'Découvrir Nos Services',
+                        'WHY CHOOSE US': 'POURQUOI NOUS CHOISIR',
+                        'since 2012': 'depuis 2012',
+                        'Specialized Legal Practice': 'Pratique Juridique Spécialisée',
+                        'Focused support in legal advisory, case preparation, and practical legal solutions for clients across Rwanda.': 'Un accompagnement ciblé en conseil juridique, préparation des dossiers, et solutions juridiques pratiques pour les clients dans tout le Rwanda.',
+                        'Professional Bailiff Execution': 'Exécution Professionnelle par Huissier',
+                        'Reliable follow-through on lawful procedures, court-related processes, and compliant execution steps.': 'Un suivi fiable des procédures légales, des démarches liées au tribunal et des étapes d\'exécution conformes.',
+                        'Structured Enforcement Support': 'Appui Structuré à l\'Exécution',
+                        'Clear enforcement planning and action tracking to help clients move from judgment to implementation.': 'Planification claire de l\'exécution et suivi des actions pour aider les clients à passer du jugement à la mise en application.',
+                        'Trusted Notification Of Letters': 'Notification de Lettres Fiable',
+                        'Timely, traceable, and documented letter notification services delivered with professionalism in Rwanda.': 'Des services de notification de lettres ponctuels, traçables et documentés, fournis avec professionnalisme au Rwanda.',
+                        'OUR EXPERTS': 'NOS EXPERTS',
+                        'Meet Our Dedicated Team': 'Rencontrez Notre Équipe Dévouée',
+                        'CHAIRMAN': 'PRÉSIDENT',
+                        'Auditor': 'AUDITEUR',
+                        'Senior valuator': 'ÉVALUATEUR SENIOR',
+                        'OUR LOCATION': 'NOTRE ADRESSE',
+                        'visit us': 'venez nous voir',
+                        '🗺️ Map: Kigali, Rwanda': '🗺️ Carte : Kigali, Rwanda',
+                        '1214×364 — directing to office': '1214×364 — direction vers le bureau',
+                        'Company LinkedIn': 'LinkedIn de la Société',
+                        'IMPORTANT LINKS': 'LIENS IMPORTANTS',
+                        'Ministry of Trade and Industry': 'Ministère du Commerce et de l\'Industrie',
+                        'MAKE APPOINTMENT': 'PRENDRE RENDEZ-VOUS',
+                        'Book advisory & consultancy': 'Réserver un conseil et une consultation',
+                        'Book': 'Réserver',
+                        'Privacy': 'Confidentialité',
+                        'Terms': 'Conditions',
+                        '© 2025 EquilbriumLegalPartners — Rwanda. All rights reserved.': '© 2025 EquilbriumLegalPartners — Rwanda. Tous droits réservés.',
+                        '© 2025 EquilbriumLegalPartners — Rwanda.': '© 2025 EquilbriumLegalPartners — Rwanda.',
+                        'All rights reserved.': 'Tous droits réservés.',
+                        'Admin Gate': 'Accès Admin',
+                        'Developed by MUSeed LTD': 'Développé par MUSeed LTD',
+                        'static: images/map.png': 'fichier statique : images/map.png'
+                    },
+                    placeholders: {
+                        'Your email': 'Votre e-mail'
+                    }
+                }
+            };
+
+            const normalized = function (text) {
+                return text.replace(/\s+/g, ' ').trim();
+            };
+
+            const dictionary = dictionaries[lang];
+            const textMap = dictionary.text;
+            const placeholderMap = dictionary.placeholders;
+            const textNodes = [];
+
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                acceptNode: function (node) {
+                    if (!node.parentElement) return NodeFilter.FILTER_REJECT;
+                    const tag = node.parentElement.tagName;
+                    if (tag === 'SCRIPT' || tag === 'STYLE') return NodeFilter.FILTER_REJECT;
+                    if (!normalized(node.textContent || '')) return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            });
+
+            while (walker.nextNode()) {
+                textNodes.push(walker.currentNode);
+            }
+
+            textNodes.forEach(function (node) {
+                const source = normalized(node.textContent || '');
+                const translated = textMap[source];
+                if (!translated) return;
+
+                const full = node.textContent || '';
+                const lead = full.match(/^\s*/)[0];
+                const trail = full.match(/\s*$/)[0];
+                node.textContent = lead + translated + trail;
+            });
+
+            document.querySelectorAll('input[placeholder]').forEach(function (input) {
+                const source = normalized(input.getAttribute('placeholder') || '');
+                if (placeholderMap[source]) {
+                    input.setAttribute('placeholder', placeholderMap[source]);
+                }
+            });
+
+            const rotator = document.getElementById('heroWordRotator');
+            if (rotator && Array.isArray(dictionary.words)) {
+                rotator.setAttribute('data-words', dictionary.words.join('|'));
+                const initial = rotator.querySelector('.hero-rotator-word.current');
+                if (initial) initial.textContent = dictionary.words[0];
+            }
+
+            document.title = dictionary.title;
+            document.documentElement.lang = lang;
+
+            const langSelect = document.getElementById('homeLangSelect');
+            if (langSelect) {
+                langSelect.value = lang;
+                langSelect.addEventListener('change', function () {
+                    const nextLang = langSelect.value;
+                    if (nextLang === lang) return;
+                    localStorage.setItem(pageKey, nextLang);
+                    window.location.reload();
+                });
+            }
+        })();
+
+        (function () {
+            const heroVideo = document.getElementById('heroBackgroundVideo');
+            if (!heroVideo) return;
+
+            // Slower, calmer playback while preserving seamless loop.
+            const targetPlaybackRate = 0.82;
+
+            const applyPlaybackRate = function () {
+                heroVideo.defaultPlaybackRate = targetPlaybackRate;
+                heroVideo.playbackRate = targetPlaybackRate;
+            };
+
+            heroVideo.addEventListener('loadedmetadata', applyPlaybackRate);
+            heroVideo.addEventListener('ratechange', function () {
+                if (heroVideo.playbackRate !== targetPlaybackRate) {
+                    heroVideo.playbackRate = targetPlaybackRate;
+                }
+            });
+
+            // Fade down just before loop end, then fade back in when loop restarts.
+            let hasFadedThisLoop = false;
+            const fadeWindowSeconds = 0.7;
+
+            heroVideo.addEventListener('timeupdate', function () {
+                if (!heroVideo.duration || Number.isNaN(heroVideo.duration)) return;
+                const remaining = heroVideo.duration - heroVideo.currentTime;
+
+                if (remaining <= fadeWindowSeconds && !hasFadedThisLoop) {
+                    hasFadedThisLoop = true;
+                    heroVideo.classList.add('fade-out-loop');
+                    heroVideo.classList.remove('fade-in-loop');
+                }
+
+                if (heroVideo.currentTime < 0.25 && hasFadedThisLoop) {
+                    hasFadedThisLoop = false;
+                    heroVideo.classList.remove('fade-out-loop');
+                    heroVideo.classList.add('fade-in-loop');
+                }
+            });
+
+            applyPlaybackRate();
+
+            heroVideo.play().catch(function () {});
+        })();
+
+        (function () {
+            const rotator = document.getElementById('heroWordRotator');
+            if (!rotator) return;
+
+            const words = (rotator.getAttribute('data-words') || '')
+                .split('|')
+                .map(function (word) { return word.trim(); })
+                .filter(Boolean);
+
+            if (words.length < 2) return;
+
+            const currentWord = rotator.querySelector('.hero-rotator-word.current');
+            const nextWord = rotator.querySelector('.hero-rotator-word.next');
+            if (!currentWord || !nextWord) return;
+
+            // Reserve width for the longest word so surrounding text never shifts.
+            const probe = document.createElement('span');
+            probe.className = 'hero-rotator-word';
+            probe.style.position = 'absolute';
+            probe.style.visibility = 'hidden';
+            probe.style.whiteSpace = 'nowrap';
+            rotator.appendChild(probe);
+
+            let maxWidth = 0;
+            words.forEach(function (word) {
+                probe.textContent = word;
+                maxWidth = Math.max(maxWidth, probe.getBoundingClientRect().width);
+            });
+
+            rotator.removeChild(probe);
+            rotator.style.minWidth = Math.ceil(maxWidth + 2) + 'px';
+
+            const visibleDurationMs = 2500;
+            const transitionDurationMs = 500;
+            const cycleDurationMs = visibleDurationMs + transitionDurationMs;
+
+            let index = 0;
+            currentWord.textContent = words[index];
+
+            window.setInterval(function () {
+                const nextIndex = (index + 1) % words.length;
+                nextWord.textContent = words[nextIndex];
+                rotator.classList.add('is-animating');
+
+                window.setTimeout(function () {
+                    currentWord.textContent = words[nextIndex];
+                    rotator.classList.remove('is-animating');
+                    index = nextIndex;
+                }, transitionDurationMs);
+            }, cycleDurationMs);
+        })();
+    </script>
+</body>
+</html>

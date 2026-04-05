@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | EquilbriumLegalPartners</title>
+    <link rel="icon" type="image/png" href="{% static 'images/equilogo.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --ink: #10253f;
+            --muted: #516987;
+            --line: #d8e2ee;
+            --panel: #ffffff;
+            --bg: #f4f8fc;
+            --accent: #1f5eb6;
+            --accent-dark: #133f80;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Manrope', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: radial-gradient(1200px 600px at 85% -10%, #e7f0ff 0%, rgba(231, 240, 255, 0) 70%), var(--bg);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.24s ease, transform 0.24s ease;
+        }
+
+        body.page-ready {
+            opacity: 1;
+        }
+
+        body.page-leave {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 clamp(0.85rem, 2.3vw, 1.2rem);
+        }
+
+        .topbar {
+            background: #0a1628;
+            color: #d7e6f8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .topbar .container {
+            min-height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .brand img {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #d7e6f8;
+            font-weight: 600;
+            padding: 0.45rem 0.68rem;
+            border-radius: 999px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .nav-links .active-link {
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .hero {
+            padding: 3rem 0 1.8rem;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', 'Manrope', sans-serif;
+            font-size: clamp(2rem, 4.2vw, 3.2rem);
+            line-height: 1.06;
+            text-transform: uppercase;
+            margin-bottom: 0.9rem;
+            color: #0c2340;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: var(--muted);
+            font-size: 1.04rem;
+        }
+
+        .pill {
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.45rem 0.85rem;
+            color: #234262;
+            background: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 1rem;
+            margin: 1.8rem 0 2rem;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 1.25rem;
+            box-shadow: 0 18px 35px rgba(21, 52, 93, 0.08);
+        }
+
+        .panel h2 {
+            margin-bottom: 0.55rem;
+            color: #0f335f;
+            font-size: 1.2rem;
+        }
+
+        .panel p {
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            font-size: 0.98rem;
+        }
+
+        .list {
+            list-style: none;
+            display: grid;
+            gap: 0.55rem;
+            color: #2c4f75;
+            font-size: 0.95rem;
+        }
+
+        .list li {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+        }
+
+        .list i {
+            color: var(--accent);
+            margin-top: 0.2rem;
+        }
+
+        .team-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .team-title h2 {
+            color: #0f335f;
+            font-size: 1.35rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .team-card {
+            background: #fafdff;
+            border: 1px solid #e3eaf2;
+            border-radius: 18px;
+            padding: 1.05rem;
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 0.75rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(19, 63, 128, 0.16);
+            background: #dbe8f8;
+            color: #1f5eb6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: calc(var(--photo-focus-x, 50) * 1%) calc(var(--photo-focus-y, 50) * 1%);
+        }
+
+        .team-name {
+            font-weight: 800;
+            color: #0f2b4b;
+        }
+
+        .team-role {
+            color: var(--accent);
+            font-size: 0.86rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .team-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--muted);
+            padding: 1rem;
+            border-radius: 14px;
+            border: 1px dashed var(--line);
+            background: #fbfdff;
+        }
+
+        .cta-bar {
+            margin: 1.6rem 0 2.4rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 0.78rem 1.15rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .cta-btn.primary {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        }
+
+        .cta-btn.secondary {
+            color: #1c4b86;
+            background: #e9f1ff;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .topbar .container {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .brand {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 0.35rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.42rem 0.62rem;
+            }
+
+            .hero {
+                padding-top: 2.1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.55rem, 9.3vw, 2.2rem);
+                line-height: 1.14;
+            }
+
+            .hero p {
+                font-size: 0.97rem;
+            }
+
+            .panel {
+                border-radius: 14px;
+                padding: 1rem;
+            }
+
+            .team-grid {
+                grid-template-columns: minmax(210px, 1fr);
+                max-width: 360px;
+                margin: 0 auto;
+            }
+
+            .cta-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container">
+            <a class="brand" href="{% url 'home' %}">
+                <img src="{% static 'images/equilogo.png' %}" alt="EquilbriumLegalPartners logo">
+                <span>EquilbriumLegalPartners</span>
+            </a>
+            <nav class="nav-links" aria-label="Main">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'about' %}" class="active-link">About</a>
+                <a href="{% url 'services' %}">Services</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>About EquilbriumLegalPartners</h1>
+            <p>
+                EquilbriumLegalPartners is a Rwanda-based legal and enforcement practice focused on reliable legal support,
+                bailiff execution, enforcement procedures, and professional notification of letters. We combine legal precision,
+                transparent communication, and structured follow-through for every client engagement.
+            </p>
+            <div class="pill"><i class="fas fa-location-dot"></i> Kigali, Rwanda | Serving clients across Rwanda</div>
+        </section>
+
+        <section class="about-grid">
+            <article class="panel">
+                <h2>What We Do</h2>
+                <p>
+                    We support individuals, businesses, and institutions through practical legal services and compliant enforcement actions.
+                    Our work is built on professionalism, confidentiality, and measurable outcomes.
+                </p>
+                <ul class="list">
+                    <li><i class="fas fa-check-circle"></i><span>Legal advisory and case preparation</span></li>
+                    <li><i class="fas fa-check-circle"></i><span>Bailiff action and court process support</span></li>
+                    <li><i class="fas fa-check-circle"></i><span>Enforcement planning and execution tracking</span></li>
+                    <li><i class="fas fa-check-circle"></i><span>Documented, traceable notification of letters</span></li>
+                </ul>
+            </article>
+            <article class="panel">
+                <h2>Our Approach</h2>
+                <p>
+                    We prioritize clarity, speed, and legal compliance from the first consultation to final execution.
+                    Clients receive straightforward updates and practical recommendations at each step.
+                </p>
+                <ul class="list">
+                    <li><i class="fas fa-scale-balanced"></i><span>Professional ethics and legal accuracy</span></li>
+                    <li><i class="fas fa-clipboard-check"></i><span>Structured workflows and documentation</span></li>
+                    <li><i class="fas fa-user-shield"></i><span>Client confidentiality and accountability</span></li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="team-title">
+                <h2>Our Experts</h2>
+                <span class="pill"><i class="fas fa-users"></i> Dedicated professional team</span>
+            </div>
+            <div class="team-grid">
+                {% for member in team_members %}
+                <div class="team-card">
+                    <div class="team-avatar">
+                        {% if member.photo %}
+                        <img src="{{ member.photo.url }}" alt="{{ member.name }}" style="--photo-focus-x: {{ member.photo_focus_x }}; --photo-focus-y: {{ member.photo_focus_y }};">
+                        {% else %}
+                        {{ member.name|slice:":1"|upper }}
+                        {% endif %}
+                    </div>
+                    <div class="team-name">{{ member.name }}</div>
+                    <div class="team-role">{{ member.role }}</div>
+                </div>
+                {% empty %}
+                <div class="team-empty">No published experts yet. Add members in the admin dashboard.</div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="cta-bar">
+            <a class="cta-btn primary" href="{% url 'contact' %}"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+            <a class="cta-btn secondary" href="{% url 'services' %}"><i class="fas fa-briefcase"></i> View Services</a>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            document.body.classList.add('page-ready');
+            document.addEventListener('click', function (event) {
+                const anchor = event.target.closest('a[href]');
+                if (!anchor) return;
+
+                const href = anchor.getAttribute('href');
+                if (!href) return;
+                if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+                if (anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+
+                const destination = new URL(anchor.href, window.location.origin);
+                if (destination.origin !== window.location.origin) return;
+                if (destination.pathname === window.location.pathname && destination.search === window.location.search) return;
+
+                event.preventDefault();
+                document.body.classList.add('page-leave');
+                setTimeout(function () {
+                    window.location.href = destination.href;
+                }, 180);
+            });
+        })();
+    </script>
+</body>
+</html>
