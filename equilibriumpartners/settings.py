@@ -8,7 +8,9 @@ SECRET_KEY = 'change-me-for-production'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'kalisaguillain.pythonanywhere.com'
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
